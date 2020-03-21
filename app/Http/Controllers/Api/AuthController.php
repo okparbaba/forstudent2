@@ -41,10 +41,10 @@ class AuthController extends Controller
             'password' => bcrypt($request['password']),
         ]);
 
-        return response()->json([
+        return "response()->json([
             'error' => true,
             'message' => 'Wrong credentials!'
-        ])->setStatusCode(401);
+        ])->setStatusCode(401);"
     }
 
     public function passwordResetRequest(Request $request)
