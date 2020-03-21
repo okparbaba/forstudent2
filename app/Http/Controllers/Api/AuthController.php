@@ -27,6 +27,26 @@ class AuthController extends Controller
         ])->setStatusCode(401);
     }
 
+    public function register(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+        ]);
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Wrong credentials!'
+        ])->setStatusCode(401);
+    }
+
     public function passwordResetRequest(Request $request)
     {
         $this->validate($request, [
