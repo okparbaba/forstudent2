@@ -35,16 +35,16 @@ class AuthController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        User::create([
+        return User::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => bcrypt($request['password']),
         ]);
 
-        return "response()->json([
+        return response()->json([
             'error' => true,
             'message' => 'Wrong credentials!'
-        ])->setStatusCode(401);"
+        ])->setStatusCode(401);
     }
 
     public function passwordResetRequest(Request $request)
